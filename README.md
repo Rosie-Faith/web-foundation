@@ -1,0 +1,1 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><a href="https://claude.ai/public/artifacts/3b33c031-21cd-4829-b79c-44f200ea540d">https://claude.ai/public/artifacts/3b33c031-21cd-4829-b79c-44f200ea540d</a></body></html>
