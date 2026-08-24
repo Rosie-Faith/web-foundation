@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>pricing.js test output</title>
+<style>
+  body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; padding: 2rem; font-size: 1.1rem; }
+  h1 { color: #fff; font-size: 1.3rem; }
+  .line { padding: 0.4rem 0; border-bottom: 1px solid #333; }
+  .call { color: #9cdcfe; }
+  .result { color: #b5cea8; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>pricing.js — console output</h1>
+<div id="output"></div>
+
+<script src="pricing.js"></script>
+<script>
+  const out = document.getElementById('output');
+  function show(label, value) {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.innerHTML = '<span class="call">' + label + '</span> &rarr; <span class="result">' + value + '</span>';
+    out.appendChild(div);
+  }
+
+  show('orderTotal(500, 4)', orderTotal(500, 4));
+  show('deliveryMessage(orderTotal(500, 4))', deliveryMessage(orderTotal(500, 4)));
+  show('orderTotal(2500, 5)', orderTotal(2500, 5));
+  show('deliveryMessage(orderTotal(2500, 5))', deliveryMessage(orderTotal(2500, 5)));
+  show('orderTotal(1200, 2)', orderTotal(1200, 2));
+  show('deliveryMessage(orderTotal(1200, 2))', deliveryMessage(orderTotal(1200, 2)));
+</script>
+</body>
+</html>

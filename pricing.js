@@ -6,7 +6,7 @@ return subtotal * deliveryfee;
 function deliveryMessage(total){
     if (total >= 10000){
         return "Free Delivery!";
-    }else{
+    } else {
         return "Delivery: 1000 FCFA";
     }
 }
