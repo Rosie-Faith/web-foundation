@@ -9,6 +9,10 @@ header {
   padding: 30px;
 }
 
+main {
+  padding: 20px;
+}
+
 .products {
   display: flex;
   justify-content: center;
@@ -22,6 +26,66 @@ header {
   width: 180px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card button,
+.order-form button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart {
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 500px;
+  background: white;
+  border-radius: 10px;
+}
+
+.order-form {
+  margin: 40px auto;
+  padding: 25px;
+  max-width: 500px;
+  background: white;
+  border-radius: 10px;
+}
+
+.order-form div {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.order-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.order-form input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.order-form button {
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.confirmation {
+  margin: 40px auto;
+  padding: 25px;
+  max-width: 500px;
+  background: white;
+  border-radius: 10px;
 }
 
 footer {
