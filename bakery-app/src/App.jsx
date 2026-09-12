@@ -68,7 +68,9 @@ function App() {
               price={product.price}
               onAddToCart={addToCart}
             />
-          ))}
+          ))}<button className="order-button">
+  Order Now
+</button>
         </div>
 
         {/* Cart */}
