@@ -1,0 +1,40 @@
+### Get all orders
+GET http://localhost:3000/orders
+
+### Get one order
+GET http://localhost:3000/orders/1
+
+### Get nonexistent order - should return 404
+GET http://localhost:3000/orders/99
+
+### Create a valid order - should return 201
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "customer": "Grace",
+  "items": ["Chocolate Cake", "Croissant"],
+  "total": 9000,
+  "phone": "677123456"
+}
+
+### Invalid order - empty items - should return 400
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "customer": "John",
+  "items": [],
+  "total": 5000,
+  "phone": "677987654"
+}
+
+### Invalid order - missing phone - should return 400
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "customer": "Mary",
+  "items": ["Baguette"],
+  "total": 3500
+}
