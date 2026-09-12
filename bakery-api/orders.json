@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "customer": "Alice",
+    "items": ["Chocolate Cake", "Croissant"],
+    "total": 8500
+  },
+  {
+    "id": 2,
+    "customer": "Brian",
+    "items": ["Vanilla Cake"],
+    "total": 12000
+  },
+  {
+    "id": 3,
+    "customer": "Clara",
+    "items": ["Meat Pie", "Doughnut", "Juice"],
+    "total": 5500
+  },
+  {
+    "id": 4,
+    "customer": "David",
+    "items": ["Red Velvet Cake", "Cupcake"],
+    "total": 9500
+  },
+  {
+    "id": 5,
+    "customer": "Esther",
+    "items": ["Bread", "Croissant", "Doughnut"],
+    "total": 4000
+  }
+]
