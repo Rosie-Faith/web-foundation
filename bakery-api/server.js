@@ -1,64 +1,91 @@
+require("dotenv").config();
+
 const express = require("express");
-const fs = require("fs");
+const { Pool } = require("pg");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
 app.use(express.json());
 
-let orders = JSON.parse(fs.readFileSync("orders.json", "utf8"));
+// GET /products
+app.get("/products", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM products ORDER BY id"
+    );
 
-// GET /orders
-app.get("/orders", (req, res) => {
-  res.status(200).json(orders);
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
 });
 
-// GET /orders/:id
-app.get("/orders/:id", (req, res) => {
-  const order = orders.find(
-    (order) => order.id === Number(req.params.id)
-  );
+// GET /orders
+app.get("/orders", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        o.id,
+        o.customer_name,
+        p.name AS product_name,
+        o.product_id,
+        o.quantity,
+        p.price,
+        (p.price * o.quantity) AS total,
+        o.created_at
+      FROM orders o
+      JOIN products p ON p.id = o.product_id
+      ORDER BY o.id
+    `);
 
-  if (!order) {
-    return res.status(404).json({ error: "Order not found" });
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch orders" });
   }
-
-  res.status(200).json(order);
 });
 
 // POST /orders
-app.post("/orders", (req, res) => {
-  const { customer, items, total, phone } = req.body;
+app.post("/orders", async (req, res) => {
+  const { customerName, productId, quantity } = req.body;
 
-  if (!Array.isArray(items) || items.length === 0) {
+  if (!customerName || !productId || !quantity) {
     return res.status(400).json({
-      error: "items must be a non-empty array"
+      error: "customerName, productId and quantity are required",
     });
   }
 
-  if (!phone) {
-    return res.status(400).json({
-      error: "phone is required"
-    });
+  try {
+    const product = await pool.query(
+      "SELECT * FROM products WHERE id = $1",
+      [productId]
+    );
+
+    if (product.rows.length === 0) {
+      return res.status(404).json({
+        error: "Product not found",
+      });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO orders
+       (customer_name, product_id, quantity)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
+      [customerName, productId, quantity]
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create order" });
   }
-
-  if (!customer || typeof total !== "number") {
-    return res.status(400).json({
-      error: "customer and numeric total are required"
-    });
-  }
-
-  const newOrder = {
-    id: orders.length + 1,
-    customer,
-    items,
-    total,
-    phone
-  };
-
-  orders.push(newOrder);
-
-  res.status(201).json(newOrder);
 });
 
 app.listen(PORT, () => {
