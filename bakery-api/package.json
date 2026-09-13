@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node stats.js",
-  "test": "vitest"
-},
-
+    "start": "node stats.js",
+    "test": "vitest"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
